@@ -20,7 +20,7 @@ public class Main {
                 .filter(p -> p.getAge() < 18)
                 .count();
 
-        List<String> recruitsList =  persons.stream()
+        List<String> recruitsList = persons.stream()
                 .filter(p -> p.getSex() == Sex.MAN)
                 .filter(p -> p.getAge() >= 18 && p.getAge() <= 27)
                 .map(p -> p.getFamily())
@@ -29,15 +29,9 @@ public class Main {
         List<Person> workers = persons.stream()
                 .filter(p -> p.getEducation() == Education.HIGHER)
                 .filter(p -> p.getAge() >= 18)
-                .filter(p -> {
-                    if (p.getSex() == Sex.MAN && p.getAge() <= 65) {
-                        return true;
-                    }
-                    if (p.getSex() == Sex.WOMAN && p.getAge() <= 60) {
-                        return true;
-                    }
-                    return false;
-                })
+                .filter(p ->
+                        (p.getSex() == Sex.MAN && p.getAge() <= 65) || (p.getSex() == Sex.WOMAN && p.getAge() <= 60)
+                )
                 .sorted(Comparator.comparing(p -> p.getFamily()))
                 .collect(Collectors.toList());
 
